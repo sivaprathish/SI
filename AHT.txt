@@ -1,0 +1,97 @@
+# -----------------------------------------
+# Problem 4: Right-Tailed Proportion Test
+# H0: p = 0.8
+# H1: p > 0.8
+# -----------------------------------------
+
+p <- 85/100          # Sample proportion
+p0 <- 0.8            # Hypothesized proportion
+n <- 100             # Sample size
+q0 <- 1 - p0         # Complement
+
+# Z-test statistic
+z <- (p - p0) / sqrt(p0 * q0 / n)
+z
+
+# Significance level
+alpha <- 0.05
+
+# Critical value (right-tailed)
+z_alpha <- qnorm(1 - alpha)
+z_alpha
+
+# P-value
+p_value <- 1 - pnorm(z)
+p_value
+
+# Decision
+if(z > z_alpha){
+  print("Reject Null Hypothesis")
+} else {
+  print("Accept Null Hypothesis")
+}
+
+
+
+# -----------------------------------------
+# Problem 5: Left-Tailed Proportion Test
+# H0: p = 0.5
+# H1: p < 0.5
+# -----------------------------------------
+
+p <- 30/214
+p0 <- 0.5
+n <- 214
+q0 <- 1 - p0
+
+# Z-test statistic
+z <- (p - p0) / sqrt(p0 * q0 / n)
+z
+
+# Critical value (left-tailed)
+z_alpha <- qnorm(alpha)
+z_alpha
+
+# P-value
+p_value <- pnorm(z)
+p_value
+
+# Decision
+if(z < z_alpha){
+  print("Reject Null Hypothesis")
+} else {
+  print("Accept Null Hypothesis")
+}
+
+
+
+# -----------------------------------------
+# Problem 6: Two-Tailed Proportion Test
+# H0: p = 0.5
+# H1: p ≠ 0.5
+# -----------------------------------------
+
+p <- 18/30
+p0 <- 0.5
+n <- 30
+q0 <- 1 - p0
+
+# Z-test statistic
+z <- (p - p0) / sqrt(p0 * q0 / n)
+z
+
+# Critical values (two-tailed)
+z_alpha <- qnorm(1 - alpha/2)
+-z_alpha
+z_alpha
+
+# P-value
+p_value <- 2 * pnorm(-abs(z))
+p_value
+
+# Decision
+if(abs(z) > z_alpha){
+  print("Reject Null Hypothesis")
+} else {
+  print("Accept Null Hypothesis")
+}
