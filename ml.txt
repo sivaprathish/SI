@@ -176,6 +176,7 @@ X_pca = pca.fit_transform(X_scaled)
 
 print("PCA Result:\n", X_pca)
 print("Explained variance:", pca.explained_variance_ratio_)
+print("Cumulative variance:", np.cumsum(pca.explained_variance_ratio_))
 ```
 
 ---
