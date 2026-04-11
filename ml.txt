@@ -23,9 +23,48 @@ grid.fit(X_train, y_train)
 print(grid.best_params_)
 
 
-Here is your **FULL cleaned and properly formatted code (plain text only)** extracted from the PDF :
+import numpy as np
+import matplotlib.pyplot as plt
 
----
+# Generate sample data
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# Add bias term (column of 1s)
+X_b = np.c_[np.ones((100, 1)), X]
+
+# Initialize parameters (theta)
+theta = np.random.randn(2, 1)
+
+# Hyperparameters
+learning_rate = 0.1
+n_iterations = 1000
+m = len(X_b)
+
+# Gradient Descent
+for iteration in range(n_iterations):
+    gradients = (2/m) * X_b.T.dot(X_b.dot(theta) - y)
+    theta = theta - learning_rate * gradients
+
+print("Learned parameters (theta):")
+print(theta)
+
+# Predictions
+X_new = np.array([[0], [2]])
+X_new_b = np.c_[np.ones((2, 1)), X_new]
+y_predict = X_new_b.dot(theta)
+
+print("Predictions:", y_predict)
+
+# Plot results
+plt.scatter(X, y, label="Data")
+plt.plot(X_new, y_predict, color='red', label="Prediction")
+plt.xlabel("X")
+plt.ylabel("y")
+plt.title("Linear Regression using Gradient Descent")
+plt.legend()
+plt.show()
 
 # =========================
 
@@ -317,5 +356,793 @@ linked = linkage(X, 'single')
 
 dendrogram(linked)
 plt.show()
+
+
+
+
+# Import required libraries
+import pandas as pd
+# Import required libraries
+import numpy as np
+# Import required libraries
+import matplotlib.pyplot as plt
+
+# Variable assignment or computation
+array = [80, 85, 90, 95, 100, 105, 110, 115, 120, 125]
+print("4th element:", array[3])
+print(array[2:5])
+
+# Variable assignment or computation
+A = np.array([[1, 2, 3, 4],
+              [5, 6, 7, 8],
+              [9, 10, 11, 12]])
+
+print("Matrix:\n", A)
+print("First row of A:", A[0])
+print(A[0, 1])
+print(A[0:2])
+print(A[:, 2])
+
+# Variable assignment or computation
+df = pd.DataFrame({
+    "col1": [1, 2, 3, 4, 5],
+    "col2": [4, 5, 6, 7, 8],
+    "col3": [7, 8, 9, 10, 11]
+})
+
+print(df)
+print(df.shape)
+
+print("Number of rows:", len(df))
+print("Number of rows using shape:", df.shape[0])
+print("Number of rows using index:", df.index.size)
+
+print("Number of cols:", len(df.columns))
+print("Number of cols using shape:", df.shape[1])
+
+print("Head:\n", df.head())
+print("Tail:\n", df.tail())
+
+print(df.head(3))
+print(list(df.columns))
+print(df.info())
+
+
+# Variable assignment or computation
+marks = pd.DataFrame({
+    "Python": [78, 65, 90, 55, 45, 65, 70, 83, 90, 75],
+    "Probability": [65, 90, 89, 58, 74, 55, 64, 77, 49, 56],
+    "Linear Algebra": [76, 84, 64, 55, 86, 49, 67, 74, 82, 45],
+    "Deep": [67, 66, 64, 84, 95, 44, 76, 72, 48, 65],
+    "PBI": [87, 43, 75, 76, 21, 66, 60, 78, 34, 23]
+})
+
+print(marks.mean())
+print(marks.median())
+print(marks.std())
+print(marks.var())
+print(marks.min())
+print(marks.max())
+
+print(marks["Python"].mean())
+print(marks.describe())
+print(marks.isnull())
+print(marks.notnull())
+
+
+# Import required libraries
+import pandas as pd
+# Import required libraries
+import numpy as np
+
+# Variable assignment or computation
+data = pd.read_csv("heart.csv")
+
+print("No. of rows:", data.shape[0])
+print("No. of cols:", data.shape[1])
+
+print("Column Names:", list(data.columns))
+print("What 5 rows in data:\n", data.head())
+print("Detailed info:\n", data.info())
+
+# Variable assignment or computation
+print("Mean:\n", data.mean(numeric_only=True))
+# Variable assignment or computation
+print("Median:\n", data.median(numeric_only=True))
+# Variable assignment or computation
+print("Std Dev:\n", data.std(numeric_only=True))
+# Variable assignment or computation
+print("Variance:\n", data.var(numeric_only=True))
+
+print("Min values:\n", data.min())
+print("Max values:\n", data.max())
+
+print("Average cholesterol:", data["chol"].mean())
+print("Missing values:\n", data.isnull().sum())
+print("Max age:", data["age"].max())
+
+
+
+# PREPROCESSING & VISUALIZATION
+# =======================
+# Import required libraries
+import scipy
+# Import required libraries
+import seaborn as sns
+
+# Variable assignment or computation
+df = pd.read_csv("diabetes.csv")
+print(df.head())
+
+print(df.shape)
+print(df.isnull().sum())
+print(df["Pregnancies"].isnull().sum())
+print(df["Age"].isnull().sum())
+
+print(df.describe())
+print(df.describe().T)
+
+# Variable assignment or computation
+df.hist(bins=20, figsize=(15, 10), color='lavender', edgecolor='black')
+plt.suptitle("Histogram of Attributes")
+plt.show()
+
+# Variable assignment or computation
+fig, axes = plt.subplots(9, 1, dpi=95, figsize=(7, 17))
+# Loop starts here
+for i, col in enumerate(df.columns):
+# Variable assignment or computation
+    axes[i].boxplot(df[col], vert=False)
+    axes[i].set_ylabel(col)
+plt.show()
+
+# Variable assignment or computation
+corr = df.corr()
+# Variable assignment or computation
+sns.heatmap(corr, annot=True, fmt=".2f", cmap="crest")
+plt.show()
+
+# Variable assignment or computation
+print(corr["Outcome"].sort_values(ascending=False))
+
+# Variable assignment or computation
+X = df.drop(columns=["Outcome"])
+# Variable assignment or computation
+y = df["Outcome"]
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+# Variable assignment or computation
+scaler = MinMaxScaler(feature_range=(0, 1))
+# Variable assignment or computation
+rescaledX = scaler.fit_transform(X)
+
+# Variable assignment or computation
+scaler = StandardScaler()
+# Variable assignment or computation
+rescaledX = scaler.fit_transform(X)
+
+# Variable assignment or computation
+data = {
+    "First Score": [100, 90, 75, np.nan, 95, 75],
+    "Second Score": [30, 45, 65, np.nan, 60, 75],
+    "Third Score": [np.nan, 40, 80, 78, 55, np.nan]
+}
+
+# Variable assignment or computation
+df = pd.DataFrame(data)
+
+df.dropna()
+# Variable assignment or computation
+df2 = df.fillna(0)
+
+print(df.mean())
+
+# Variable assignment or computation
+df3 = df.fillna(df.mean())
+print("Mean Imputation:\n", df3)
+
+# Variable assignment or computation
+df4 = df.fillna(df.median())
+print("Median Imputation:\n", df4)
+
+# Variable assignment or computation
+df5 = df.ffill()
+print("Forward Fill:\n", df5)
+
+# Variable assignment or computation
+df6 = df.bfill()
+print("Backward Fill:\n", df6)
+
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+
+# Variable assignment or computation
+numeric_features = df.select_dtypes(include=['float64', 'int64']).columns
+
+# Variable assignment or computation
+numeric_transformer = Pipeline(steps=[
+# Variable assignment or computation
+    ("imputer", SimpleImputer(strategy="mean")),
+    ("scaler", StandardScaler())
+])
+
+# Variable assignment or computation
+preprocessor = ColumnTransformer(
+# Variable assignment or computation
+    transformers=[("num", numeric_transformer, numeric_features)]
+)
+
+# Variable assignment or computation
+df_data = preprocessor.fit_transform(df)
+print(df_data)
+
+
+
+
+# PCA
+# =======================
+from sklearn.decomposition import PCA
+
+np.random.seed(42)
+# Variable assignment or computation
+X = np.random.rand(100, 5)
+# Variable assignment or computation
+X_dataset = pd.DataFrame(X)
+
+print(X_dataset.head())
+
+# Variable assignment or computation
+scaler = StandardScaler()
+# Variable assignment or computation
+X_std = scaler.fit_transform(X_dataset)
+
+print(np.mean(X_std), np.std(X_std))
+
+# Variable assignment or computation
+pca = PCA(n_components=2)
+# Variable assignment or computation
+X_pca = pca.fit_transform(X_std)
+
+print(X_pca)
+
+print("Explained variance:", pca.explained_variance_ratio_)
+print("Cumulative variance:", np.cumsum(pca.explained_variance_ratio_))
+
+plt.plot(range(1, len(np.cumsum(pca.explained_variance_ratio_)) + 1),
+         np.cumsum(pca.explained_variance_ratio_))
+plt.xlabel("Components")
+plt.ylabel("Variance")
+plt.show()
+
+
+# =======================
+# GRID SEARCH & RANDOM SEARCH
+# =======================
+from sklearn import datasets
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, accuracy_score
+
+# Variable assignment or computation
+iris = datasets.load_iris()
+# Variable assignment or computation
+X = iris.data
+# Variable assignment or computation
+y = iris.target
+
+# Variable assignment or computation
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Variable assignment or computation
+model = SVC()
+
+# Variable assignment or computation
+param_grid = {
+    "C": [0.1, 1, 10, 100],
+    "kernel": ["linear", "rbf", "poly"],
+    "gamma": ["scale", "auto"]
+}
+
+# Variable assignment or computation
+grid = GridSearchCV(model, param_grid, scoring="accuracy", cv=5)
+grid.fit(X_train, y_train)
+
+# Variable assignment or computation
+best_model = grid.best_estimator_
+# Variable assignment or computation
+y_pred = best_model.predict(X_test)
+
+print(classification_report(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# Variable assignment or computation
+random = RandomizedSearchCV(model, param_grid, cv=5)
+random.fit(X_train, y_train)
+
+
+
+# LINEAR REGRESSION
+# =======================
+from scipy.stats import linregress
+
+# Variable assignment or computation
+x = [5, 4, 3, 7, 2, 1, 9, 6]
+# Variable assignment or computation
+y = [99, 86, 87, 88, 111, 86, 103, 87]
+
+# Variable assignment or computation
+slope, intercept, r, p, std_err = linregress(x, y)
+
+
+# Function definition
+def func(x):
+    return slope * x + intercept
+
+# Variable assignment or computation
+model = list(map(func, x))
+print(model)
+
+plt.scatter(x, y)
+plt.plot(x, model)
+plt.show()
+
+
+
+# =======================
+# K-MEANS
+# =======================
+from sklearn.cluster import KMeans
+
+# Variable assignment or computation
+x = [5, 6, 7, 8, 9, 10, 11]
+# Variable assignment or computation
+y = [2, 3, 4, 5, 6, 7, 8]
+
+# Variable assignment or computation
+data = list(zip(x, y))
+
+# Variable assignment or computation
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(data)
+
+# Variable assignment or computation
+centroids = kmeans.cluster_centers_
+# Variable assignment or computation
+labels = kmeans.labels_
+
+print("Centroids:", centroids)
+print("Labels:", labels)
+
+# Variable assignment or computation
+plt.scatter(x, y, c=labels)
+plt.scatter(centroids[:, 0], centroids[:, 1])
+plt.show()
+
+# AGGLOMERATIVE CLUSTERING
+# =======================
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import AgglomerativeClustering
+
+# Variable assignment or computation
+linked = linkage(data, method='complete')
+dendrogram(linked)
+plt.show()
+
+# Variable assignment or computation
+model = AgglomerativeClustering(n_clusters=2)
+# Variable assignment or computation
+labels = model.fit_predict(data)
+
+print(labels)
+
+# Import required libraries
+import numpy as np
+from sklearn.metrics import confusion_matrix, classification_report
+# Import required libraries
+import seaborn as sns
+# Import required libraries
+import matplotlib.pyplot as plt
+
+# Variable assignment or computation
+actual = np.array([
+    "Dog", "Dog", "Dog", "Not Dog", "Dog",
+    "Not Dog", "Dog", "Dog", "Not Dog", "Dog"
+])
+
+# Variable assignment or computation
+predicted = np.array([
+    "Dog", "Not Dog", "Dog", "Dog", "Not Dog",
+    "Dog", "Dog", "Dog", "Not Dog", "Dog"
+])
+
+# Variable assignment or computation
+cm = confusion_matrix(actual, predicted)
+
+# Variable assignment or computation
+sns.heatmap(cm, annot=True, xticklabels=["Dog", "Not Dog"],
+# Variable assignment or computation
+            yticklabels=["Dog", "Not Dog"])
+
+plt.gca().xaxis.set_label_position('top')
+plt.xlabel("Prediction")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
+
+print("Classification Report:")
+print(classification_report(actual, predicted))
+
+# Import required libraries
+import numpy as np
+from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
+# Import required libraries
+import matplotlib.pyplot as plt
+
+# Variable assignment or computation
+y_true = ["Cat"] * 10 + ["Dog"] * 12 + ["Horse"] * 10
+
+# Variable assignment or computation
+y_pred = (
+    ["Cat"] * 7 + ["Dog"] * 3 +
+    ["Dog"] * 9 + ["Horse"] * 3 +
+    ["Horse"] * 8 + ["Dog"] * 2
+)
+
+# Variable assignment or computation
+classes = ["Cat", "Dog", "Horse"]
+
+# Variable assignment or computation
+cm = confusion_matrix(y_true, y_pred, labels=classes)
+
+# Variable assignment or computation
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
+# Variable assignment or computation
+disp.plot(cmap=plt.cm.Greens)
+
+plt.title("Confusion Matrix")
+plt.xlabel("Prediction")
+plt.ylabel("Actual")
+
+plt.gca().xaxis.set_label_position('top')
+plt.gca().xaxis.tick_top()
+
+plt.show()
+
+print("Classification Report:")
+print(classification_report(y_true, y_pred))
+
+# Import required libraries
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Variable assignment or computation
+x = [5, 4, 3, 7, 2, 1, 9, 6, 11, 12, 9, 6]
+# Variable assignment or computation
+y = [99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85]
+
+# Variable assignment or computation
+slope, intercept, r, p, std_err = stats.linregress(x, y)
+
+
+# Function definition
+def myfunc(x):
+    return slope * x + intercept
+
+# Variable assignment or computation
+mymodel = list(map(myfunc, x))
+print(mymodel)
+
+print("Correlation coefficient:", r)
+
+# Variable assignment or computation
+yhat = myfunc(10)
+# Variable assignment or computation
+print("Predicted value at x = 10:", yhat)
+
+plt.scatter(x, y)
+plt.scatter(10, yhat)
+plt.plot(x, mymodel)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Linear Regression")
+plt.show()
+
+# Import required libraries
+import numpy as np
+# Import required libraries
+import matplotlib.pyplot as plt
+
+# Variable assignment or computation
+x = [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 11, 12, 19, 21, 22]
+# Variable assignment or computation
+y = [100, 90, 80, 60, 65, 70, 0, 75, 76, 89, 90, 99, 99, 94, 100, 100, 99, 100]
+
+# Variable assignment or computation
+mymodel = np.poly1d(np.polyfit(x, y, 3))
+
+# Variable assignment or computation
+yhat = mymodel(10.5)
+# Variable assignment or computation
+print("Predicted value at x = 10.5:", yhat)
+
+plt.scatter(x, y)
+plt.scatter(10.5, yhat)
+plt.plot(x, mymodel(x))
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Polynomial Regression")
+plt.show()
+
+# Import required libraries
+import numpy as np
+# Import required libraries
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+np.random.seed(42)
+
+# Variable assignment or computation
+x = np.linspace(0, 10, 100)
+# Variable assignment or computation
+y = np.sin(x) + np.random.normal(0, 0.3, size=x.shape)
+
+# Variable assignment or computation
+x_reshaped = x.reshape(-1, 1)
+
+# Variable assignment or computation
+model = LinearRegression()
+model.fit(x_reshaped, y)
+
+# Variable assignment or computation
+y_pred = model.predict(x_reshaped)
+
+# Variable assignment or computation
+plt.scatter(x, y, color="blue", label="Data")
+# Variable assignment or computation
+plt.plot(x, y_pred, color="red", label="Underfitting")
+plt.legend()
+plt.title("Underfitting")
+plt.show()
+
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+
+# Variable assignment or computation
+model_overfit = make_pipeline(PolynomialFeatures(degree=9), LinearRegression())
+model_overfit.fit(x_reshaped, y)
+
+# Variable assignment or computation
+y_pred_overfit = model_overfit.predict(x_reshaped)
+
+# Variable assignment or computation
+plt.scatter(x, y, color="blue", label="Data")
+# Variable assignment or computation
+plt.plot(x, y_pred_overfit, color="red", label="Overfitting")
+plt.legend()
+plt.title("Overfitting")
+plt.show()
+
+
+# Function definition
+def f(x):
+    return x**2
+
+
+# Function definition
+def df(x):
+    return 2 * x
+
+# Variable assignment or computation
+x = 9
+# Variable assignment or computation
+lr = 0.1
+# Variable assignment or computation
+iterations = 20
+
+# Variable assignment or computation
+history_x = [x]
+# Variable assignment or computation
+history_y = [f(x)]
+
+# Loop starts here
+for _ in range(iterations):
+# Variable assignment or computation
+    gradient = df(x)
+# Variable assignment or computation
+    x = x - lr * gradient
+    history_x.append(x)
+    history_y.append(f(x))
+
+# Variable assignment or computation
+x_range = np.linspace(-10, 10, 100)
+
+# Variable assignment or computation
+plt.plot(x_range, f(x_range), color='lightgray')
+# Variable assignment or computation
+plt.scatter(history_x, history_y, color='red')
+# Variable assignment or computation
+plt.plot(history_x, history_y, color='blue')
+
+plt.title("Gradient Descent")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.show()
+
+# Import required libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
+
+# Load dataset (same as your lab)
+# Variable assignment or computation
+df = pd.read_csv("diabetes.csv")
+
+# Features & Target
+# Variable assignment or computation
+X = df.drop("Outcome", axis=1)
+# Variable assignment or computation
+y = df["Outcome"]
+
+# Split data
+# Variable assignment or computation
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Model (classification)
+# Variable assignment or computation
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Predictions
+# Variable assignment or computation
+y_pred = model.predict(X_test)
+
+# ======================
+# EVALUATION METRICS
+# ======================
+
+# Accuracy
+# Variable assignment or computation
+accuracy = accuracy_score(y_test, y_pred)
+
+# Precision
+# Variable assignment or computation
+precision = precision_score(y_test, y_pred)
+
+# Recall
+# Variable assignment or computation
+recall = recall_score(y_test, y_pred)
+
+# F1 Score
+# Variable assignment or computation
+f1 = f1_score(y_test, y_pred)
+
+# Confusion Matrix
+# Variable assignment or computation
+cm = confusion_matrix(y_test, y_pred)
+
+# Print results
+print("Confusion Matrix:\n", cm)
+
+print("\nAccuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1 Score:", f1)
+
+# Full report
+print("\nClassification Report:\n")
+print(classification_report(y_test, y_pred))
+
+# Variable assignment or computation
+df = pd.read_csv("diabetes.csv")
+
+# Variable assignment or computation
+X = df.drop("Outcome", axis=1)   # features
+# Variable assignment or computation
+y = df["Outcome"]               # target (regression example if continuous)
+
+from sklearn.linear_model import LinearRegression
+
+# Variable assignment or computation
+model = LinearRegression()
+model.fit(X, y)
+
+# Variable assignment or computation
+y_pred = model.predict(X)
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+print("MAE:", mean_absolute_error(y, y_pred))
+print("MSE:", mean_squared_error(y, y_pred))
+print("RMSE:", np.sqrt(mean_squared_error(y, y_pred)))
+print("R2:", r2_score(y, y_pred))
+
+# Import required libraries
+import pandas as pd
+
+# Load dataset
+# Variable assignment or computation
+df = pd.read_csv("diabetes.csv")   # change filename if needed
+
+# =========================
+# BASIC INFO
+# =========================
+print("Shape (rows, columns):", df.shape)
+print("\nColumn Names:\n", df.columns)
+print("\nFirst 5 rows:\n", df.head())
+print("\nLast 5 rows:\n", df.tail())
+
+# =========================
+# DATASET STRUCTURE
+# =========================
+print("\nInfo:\n")
+print(df.info())
+
+print("\nData Types:\n", df.dtypes)
+
+# =========================
+# STATISTICS
+# =========================
+print("\nSummary Statistics:\n", df.describe())
+
+# =========================
+# MEAN (COLUMN-WISE)
+# =========================
+# Variable assignment or computation
+print("\nMean of each column:\n", df.mean(numeric_only=True))
+
+# =========================
+# MEAN (ROW-WISE)
+# =========================
+# Variable assignment or computation
+print("\nMean of each row:\n", df.mean(axis=1, numeric_only=True))
+
+# =========================
+# MEDIAN, MODE
+# =========================
+# Variable assignment or computation
+print("\nMedian:\n", df.median(numeric_only=True))
+print("\nMode:\n", df.mode().iloc[0])
+
+# =========================
+# MIN, MAX
+# =========================
+print("\nMinimum values:\n", df.min())
+print("\nMaximum values:\n", df.max())
+
+# =========================
+# STANDARD DEVIATION & VARIANCE
+# =========================
+# Variable assignment or computation
+print("\nStandard Deviation:\n", df.std(numeric_only=True))
+# Variable assignment or computation
+print("\nVariance:\n", df.var(numeric_only=True))
+
+# =========================
+# NULL / MISSING VALUES
+# =========================
+print("\nMissing values (count):\n", df.isnull().sum())
+print("\nAny null values?:", df.isnull().values.any())
+
+# =========================
+# UNIQUE VALUES
+# =========================
+print("\nUnique values per column:\n", df.nunique())
+
+# =========================
+# CORRELATION
+# =========================
+# Variable assignment or computation
+print("\nCorrelation Matrix:\n", df.corr(numeric_only=True))
+
+# =========================
+# Loop starts here
+# VALUE COUNTS (for classification target)
+# =========================
+# Conditional statement
+if "Outcome" in df.columns:
+    print("\nClass distribution:\n", df["Outcome"].value_counts())
 
 
