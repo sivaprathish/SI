@@ -1,0 +1,321 @@
+from sklearn import datasets
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from sklearn.svm import SVC
+
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = SVC()
+
+param_grid = {
+    'C': [0.1, 1, 10],
+    'kernel': ['linear', 'rbf'],
+    'gamma': ['scale', 'auto']
+}
+
+grid = GridSearchCV(model, param_grid, cv=5)
+grid=RandomizedSearchCV(model, param_grid, cv=5, n_iter=10)
+grid.fit(X_train, y_train)
+
+print(grid.best_params_)
+
+
+Here is your **FULL cleaned and properly formatted code (plain text only)** extracted from the PDF :
+
+---
+
+# =========================
+
+# LAB 1 – NUMPY BASICS
+
+# =========================
+
+import numpy as np
+
+array = [80, 85, 90, 75, 100, 105, 110, 115, 120, 125]
+print(array)
+
+print("4th element:", array[3])
+print(array[2:5])
+
+A = np.array([
+[1, 2, 3, 4],
+[5, 6, 7, 8],
+[9, 10, 11, 12]
+])
+
+print("Matrix:\n", A)
+print("First row:", A[0])
+print("Slice:", A[0:3])
+print("Column:", A[:, 2])
+
+# =========================
+
+# LAB 2 – PANDAS BASICS
+
+# =========================
+
+import pandas as pd
+
+df = pd.DataFrame({
+'col1': [1, 2, 3, 4, 5],
+'col2': [4, 5, 6, 7, 8],
+'col3': [7, 8, 12, 11, 5]
+})
+
+print(df)
+print("Shape:", df.shape)
+print("Rows:", len(df))
+print("Columns:", len(df.columns))
+
+print(df.head())
+print(df.tail())
+print(df.info())
+
+# =========================
+
+# LAB 3 – STATISTICS
+
+# =========================
+
+print("Mean:\n", df.mean())
+print("Median:\n", df.median())
+print("Std:\n", df.std())
+print("Variance:\n", df.var())
+print("Min:\n", df.min())
+print("Max:\n", df.max())
+print("Describe:\n", df.describe())
+
+print("Null values:\n", df.isnull())
+print("Not null:\n", df.notnull())
+
+# =========================
+
+# ACTIVITY – HEART DATASET
+
+# =========================
+
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("heart.csv")
+
+print(df)
+print("Shape:", df.shape)
+print("Columns:", df.columns)
+print(df.info())
+
+print("Mean:\n", df.mean())
+print("Median:\n", df.median())
+print("Std:\n", df.std())
+print("Variance:\n", df.var())
+
+print("Max:\n", df.max())
+print("Min:\n", df.min())
+
+print("Average cholesterol:", df['chol'].mean())
+print("Missing values:\n", df.isnull())
+print("Maximum age:", df['age'].max())
+
+# =========================
+
+# EXPERIMENT 3 – VISUALIZATION
+
+# =========================
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("diabetes.csv")
+
+print(df.head())
+print(df.shape)
+print(df.info())
+
+print("Missing values:\n", df.isnull().sum())
+
+df.hist(bins=20, figsize=(15,10))
+plt.show()
+
+df.plot(kind='box', subplots=True, layout=(4,4))
+plt.show()
+
+sns.heatmap(df.corr(), annot=True)
+plt.show()
+
+# =========================
+
+# EXPERIMENT 4 – MISSING VALUES
+
+# =========================
+
+import pandas as pd
+import numpy as np
+
+data = {
+'First Score': [100, 90, np.nan, 95, 75, 87],
+'Second Score': [30, 45, 56, np.nan, 60, 70],
+'Third Score': [np.nan, 40, 80, 55, np.nan, 55]
+}
+
+df = pd.DataFrame(data)
+
+df1 = df.dropna()
+print("Drop NA:\n", df1)
+
+df2 = df.fillna(0)
+print("Fill with 0:\n", df2)
+
+df3 = df.fillna(df.mean())
+print("Fill with mean:\n", df3)
+
+df4 = df.ffill()
+print("Forward fill:\n", df4)
+
+df5 = df.bfill()
+print("Backward fill:\n", df5)
+
+# =========================
+
+# EXPERIMENT 5 – PCA
+
+# =========================
+
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+X = np.random.rand(100, 3)
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+print("PCA Result:\n", X_pca)
+print("Explained variance:", pca.explained_variance_ratio_)
+
+# =========================
+
+# EXPERIMENT 6 – GRID SEARCH
+
+# =========================
+
+from sklearn import datasets
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from sklearn.svm import SVC
+
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = SVC()
+
+param_grid = {
+'C': [0.1, 1, 10],
+'kernel': ['linear', 'rbf'],
+'gamma': ['scale', 'auto']
+}
+
+grid = GridSearchCV(model, param_grid, cv=5)
+grid.fit(X_train, y_train)
+
+print("Best parameters:", grid.best_params_)
+
+# =========================
+
+# EXPERIMENT 8 – UNDERFITTING
+
+# =========================
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+X = np.linspace(0, 10, 100).reshape(-1, 1)
+y = np.sin(X) + np.random.normal(0, 0.3, size=X.shape)
+
+model = LinearRegression()
+model.fit(X, y)
+
+y_pred = model.predict(X)
+
+# =========================
+
+# EXPERIMENT 9 – CONFUSION MATRIX
+
+# =========================
+
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+y_true = ['Dog', 'Not Dog', 'Dog', 'Dog']
+y_pred = ['Dog', 'Dog', 'Dog', 'Not Dog']
+
+cm = confusion_matrix(y_true, y_pred)
+
+sns.heatmap(cm, annot=True)
+plt.show()
+
+print(classification_report(y_true, y_pred))
+
+# =========================
+
+# EXPERIMENT 10 – REGRESSION
+
+# =========================
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = [5, 7, 8, 7, 2, 17, 2, 9]
+y = [99, 86, 87, 88, 100, 86, 103, 87]
+
+model = np.poly1d(np.polyfit(x, y, 3))
+y_pred = model(10)
+
+print("Predicted value:", y_pred)
+
+# =========================
+
+# EXPERIMENT 11 – K-MEANS
+
+# =========================
+
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+X = [[5, 6], [6, 2], [5, 4], [13, 15]]
+
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(X)
+
+print("Centroids:", kmeans.cluster_centers_)
+print("Labels:", kmeans.labels_)
+
+# =========================
+
+# EXPERIMENT 12 – HIERARCHICAL CLUSTERING
+
+# =========================
+
+from scipy.cluster.hierarchy import dendrogram, linkage
+import matplotlib.pyplot as plt
+
+X = [[4, 5], [10, 12], [3, 4], [11, 13]]
+
+linked = linkage(X, 'single')
+
+dendrogram(linked)
+plt.show()
+
+
