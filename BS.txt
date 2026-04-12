@@ -1,0 +1,79 @@
+# Create dataset
+status = c(1,1,2,2,1,1,1,2,2,1,2,1,2,1,2)
+gender = c(0,1,0,1,1,1,0,0,1,0,0,1,1,0,0)
+age = c(30,37,45,32,50,60,35,32,34,43,32,30,43,50,60)
+empid = c(1:15)
+
+empinfo = data.frame(empid, age, gender, status)
+
+# Convert numeric to factor
+empinfo$gender = factor(empinfo$gender, labels=c("male","female"))
+empinfo$status = factor(empinfo$status, labels=c("staff","faculty"))
+
+# View dataset
+empinfo
+
+# Subset data
+male = subset(empinfo, gender=="male")
+female = subset(empinfo, gender=="female")
+
+male
+female
+
+# Summary statistics
+summary(empinfo)
+summary(male)
+summary(female)
+summary(empinfo$age)
+
+# Frequency tables
+table1 = table(empinfo$gender)
+table2 = table(empinfo$status)
+table3 = table(empinfo$gender, empinfo$status)
+
+table1
+table2
+table3
+
+# Line plot
+plot(empinfo$age, type="l",
+     main="Age of Employees",
+     xlab="Employee ID",
+     ylab="Age")
+
+# Pie chart
+pie(table1,
+    main="Gender Distribution",
+    col=c("orange","green"))
+
+# Bar plot
+barplot(table3,
+        beside=TRUE,
+        col=c("blue","red"),
+        main="Gender vs Status")
+
+legend("topright",
+       legend=rownames(table3),
+       fill=c("blue","red"),
+       bty="n")
+
+# Box plot
+boxplot(age ~ status,
+        data=empinfo,
+        col=c("red","blue"),
+        main="Age Distribution by Status")
+
+# Histogram
+hist(empinfo$age,
+     main="Age Distribution",
+     xlab="Age",
+     col="lightblue",
+     border="black")
+
+# Scatter plot
+plot(empinfo$empid, empinfo$age,
+     main="Scatter Plot of Age vs Employee ID",
+     xlab="Employee ID",
+     ylab="Age",
+     col="blue",
+     pch=19)
