@@ -111,3 +111,43 @@ if(tv > alpha){
 } else{
   print("Reject Ho")
 }
+###############################
+# TWO SAMPLE Z-TEST (MEANS)
+###############################
+
+# Given values
+xbar1 = 20     # Sample mean 1
+xbar2 = 15     # Sample mean 2
+
+mu1 = 0        # Usually assumed (μ1 - μ2 = 0 under H0)
+mu2 = 0
+
+sigma1 = 4     # Population SD 1
+sigma2 = 4     # Population SD 2
+
+n1 = 500       # Sample size 1
+n2 = 400       # Sample size 2
+
+# Z calculation
+z = ((xbar1 - xbar2) - (mu1 - mu2)) / sqrt((sigma1^2 / n1) + (sigma2^2 / n2))
+
+# Significance level
+alpha = 0.05
+
+# Critical value (two-tailed)
+z_critical = qnorm(1 - alpha/2)
+
+# p-value
+p_value = 2 * (1 - pnorm(abs(z)))
+
+# Output
+cat("Z value:", z, "\n")
+cat("Critical Z:", z_critical, "\n")
+cat("P-value:", p_value, "\n")
+
+# Decision
+if(abs(z) > z_critical){
+  print("Reject Null Hypothesis")
+} else {
+  print("Accept Null Hypothesis")
+}
