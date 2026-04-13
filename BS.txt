@@ -3,6 +3,7 @@ status = c(1,1,2,2,1,1,1,2,2,1,2,1,2,1,2)
 gender = c(0,1,0,1,1,1,0,0,1,0,0,1,1,0,0)
 age = c(30,37,45,32,50,60,35,32,34,43,32,30,43,50,60)
 empid = c(1:15)
+random_vals = sample(1:100, 5)
 
 empinfo = data.frame(empid, age, gender, status)
 
