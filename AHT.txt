@@ -21,12 +21,28 @@ if(pval>alpha){
 #######################################
 #   Z-TEST (SINGLE PROPORTION)        #
 #######################################
-n=640
-Sprop=63/n
-Pprop=0.1726
-q=1-Pprop
+n = 640
+Sprop = 63/n
+Pprop = 0.1726
+q = 1 - Pprop
+alpha = 0.05
 
-z=(Sprop-Pprop)/sqrt(Pprop*q/n)
+# Calculate Z-statistic
+z = (Sprop - Pprop) / sqrt(Pprop * q / n)
+
+# Calculate P-value (two-tailed)
+pval = 2 * pnorm(-abs(z))
+
+# Decision logic
+if(pval > alpha) {
+  print("Accept Null hypothesis")
+} else {
+  print("Reject Null hypothesis")
+}
+
+# Optional: Print the results to see the values
+print(paste("Z-statistic:", round(z, 4)))
+print(paste("P-value:", round(pval, 4)))
 
 
 ###################################
